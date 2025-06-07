@@ -80,7 +80,7 @@ const  authenticatejwtUser = (req,res,next) => {
   }  
 };
 
-mongoose.connect("mongodb+srv://deepak22scse1012073:mongo1234@cluster0.2m85yin.mongodb.net/",{ useUnifiedTopology:true,  useNewUrlParser: true});
+mongoose.connect("mongodb+srv://deepak22scse1012073:mongo1234@cluster0.2m85yin.mongodb.net/courses",{ useUnifiedTopology:true,  useNewUrlParser: true, dbName: "courses"});
 
 
 // Admin routes
