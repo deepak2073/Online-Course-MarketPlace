@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
 const adminSchema = new mongoose.Schema({
   username: String,
   password: String
+
 });
 
 const courseSchema = new mongoose.Schema({
@@ -115,6 +116,7 @@ app.post('/admin/login', async (req, res) => {
 });
 
 
+
 app.post('/admin/courses',authenticatejwtAdmin, async (req, res) => {
   const {title, description, price, published} = req.body;
   if(title == null || description == null || price == null || published == null){ res.status(403).json({message:"Please enter all fields of the course!!"});
@@ -123,6 +125,7 @@ app.post('/admin/courses',authenticatejwtAdmin, async (req, res) => {
     await newCourse.save();
     res.status('200').json({message:`Course registered successfully, Course Id: ${newCourse.id}`});
   }
+
   // logic to create a course
 });
 
@@ -149,6 +152,7 @@ app.get('/admin/courses',authenticatejwtAdmin, async (req, res) => {
 
 app.post('/users/signup',  async (req, res) => {
   const {username, password} = req.body;
+
   let user = await User.findOne({username, password});
   if(user) {
     res.status(401).json({message:"User already exists, please sign in"});
@@ -159,6 +163,7 @@ app.post('/users/signup',  async (req, res) => {
     let token = generateJwtUser(newuser);
     res.status(200).json({message:"User signup successful", token});
   }
+
   // logic to sign up user
 });
 
@@ -174,10 +179,10 @@ app.post('/users/login', async (req, res) => {
   
 });
 
+
 app.get('/users/courses',authenticatejwtUser, async (req, res) => {
   let allCourses = await Course.find({published:'yes'});
   res.status(200).json({courses: allCourses });
-   
   // logic to list all courses
 });
 
@@ -188,6 +193,7 @@ app.post('/users/courses/:courseId',authenticatejwtUser, async (req, res) => {
   if(course && user){
     await user.purchasedCourses.push(course._id);
     await user.save();
+
     res.status(200).json({message:"Course purchased successfully!!"});
   }
   else res.status(404).json({message: "Course not found or not available"});
