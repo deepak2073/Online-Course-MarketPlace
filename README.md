@@ -1,60 +1,101 @@
-## Create a course selling website
+# Course Selling REST API
 
-### Description
-1. Admins should be able to sign up
-2. Admins should be able to create courses
-   1. Course has a title, description, price, and image link
-   2. Course should be able to be published
-3. Admins should be able to edit courses
-4. Users should be able to sign up
-5. Users should be able to purchase courses
-6. Users should be able to view purchased courses
-7. Users should be able to view all courses
+A simple Node.js and Express REST API for an online course-selling platform.  
+Admins can create and manage courses, and users can browse, purchase, and view purchased courses.  
+Uses MongoDB for data storage and JWT for authentication.
 
-## Routes
-### Admin Routes:
- - POST /admin/signup
-   Description: Creates a new admin account.
-   Input: { username: 'admin', password: 'pass' }
-   Output: { message: 'Admin created successfully' }
- - POST /admin/login
-   Description: Authenticates an admin. It requires the admin to send username and password in the headers.
-   Input: Headers: { 'username': 'admin', 'password': 'pass' }
-   Output: { message: 'Logged in successfully' }
- - POST /admin/courses
-   Description: Creates a new course.
-   Input: Headers: { 'username': 'admin', 'password': 'pass' }
-   Input: Body: { title: 'course title', description: 'course description', price: 100, published: true }
-   Output: { message: 'Course created successfully', courseId: 1 }
- - PUT /admin/courses/:courseId
-   Description: Edits an existing course. courseId in the URL path should be replaced with the ID of the course to be edited.
-   Input: Headers: { 'username': 'admin', 'password': 'pass' }
-   Input: Body { title: 'updated course title', description: 'updated course description', price: 100, published: false }
-   Output: { message: 'Course updated successfully' }
- - GET /admin/courses
-   Description: Returns all the courses.
-   Input: Headers: { 'username': 'admin', 'password': 'pass' }
-   Output: { courses: [ { id: 1, title: 'course title', description: 'course description', price: 100, published: true }, ... ] }
-   User Routes:
+---
 
-### User routes
- - POST /users/signup
-   Description: Creates a new user account.
-   Input: { username: 'user', password: 'pass' }
-   Output: { message: 'User created successfully' } 
- - POST /users/login
-   Description: Authenticates a user. It requires the user to send username and password in the headers.
-   Input: Headers: { 'username': 'user', 'password': 'pass' }
-   Output: { message: 'Logged in successfully' }
- - GET /users/courses
-   Description: Lists all the courses.
-   Input: Headers: { 'username': 'admin', 'password': 'pass' }
-   Output: { courses: [ { id: 1, title: 'course title', description: 'course description', price: 100, published: true }, ... ] }
- - POST /users/courses/:courseId
-   Description: Purchases a course. courseId in the URL path should be replaced with the ID of the course to be purchased.
-   Input: Headers: { 'username': 'admin', 'password': 'pass' }
-   Output: { message: 'Course purchased successfully' }
- - GET /users/purchasedCourses
-   Description: Lists all the courses purchased by the user.
-   Input: Headers: { 'username': 'admin', 'password': 'pass' }
-   Output: { purchasedCourses: [ { id: 1, title: 'course title', description: 'course description', price: 100, published: true }, ... ] }
+## Features
+
+### Admin
+- Sign up and login
+- Create new courses
+- Update existing courses
+- View all courses
+
+### User
+- Sign up and login
+- Browse published courses
+- Purchase courses
+- View purchased courses
+
+---
+
+## Technologies Used
+
+- Node.js and Express.js
+- MongoDB with Mongoose ODM
+- JSON Web Tokens (JWT) for authentication
+
+---
+
+## Installation & Running the Server
+
+1. Install dependencies with:
+
+2. Start the server:
+
+3. Make sure MongoDB is running or update the connection string in the code.
+
+---
+
+## Authentication
+
+- Admins and users receive JWT tokens on signup/login.
+- Include the token in requests requiring authentication as a Bearer token in the `Authorization` header:
+
+---
+
+## API Endpoints
+
+### Admin Routes
+
+- **POST /admin/signup**  
+  Register a new admin. Requires `username` and `password` in JSON body.
+
+- **POST /admin/login**  
+  Login admin with `username` and `password`.
+
+- **POST /admin/courses**  
+  Create a new course. Requires authentication. Provide course details (`title`, `description`, `price`, `published`) in JSON body.
+
+- **PUT /admin/courses/:id**  
+  Update a course by ID. Requires authentication. Provide updated fields in JSON body.
+
+- **GET /admin/courses**  
+  Get all courses. Requires authentication.
+
+---
+
+### User Routes
+
+- **POST /users/signup**  
+  Register a new user. Requires `username` and `password`.
+
+- **POST /users/login**  
+  Login user with `username` and `password`.
+
+- **GET /users/courses**  
+  Get all published courses. Requires authentication.
+
+- **POST /users/courses/:courseId**  
+  Purchase a course by course ID. Requires authentication.
+
+- **GET /users/purchasedCourses**  
+  View courses purchased by the logged-in user. Requires authentication.
+
+---
+
+## Notes
+
+- Use JSON format for request bodies.
+- For protected routes, always send the JWT token in the Authorization header.
+- The `published` field should be a boolean (`true` or `false`).
+- Ensure valid MongoDB ObjectId format when specifying IDs.
+
+---
+
+## License
+
+This project is for educational purposes only.
