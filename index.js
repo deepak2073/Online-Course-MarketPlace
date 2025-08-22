@@ -163,7 +163,7 @@ app.get('/admin/courses',authenticatejwtAdmin, async (req, res) => {
 
 app.get('/admin/course/:id',authenticatejwtAdmin, async (req,res) => {
   const course = await Course.find({_id:req.params.id});
-  if(course){
+  if(course){  
     console.log(course);
     res.status(200).json({course});
   }else{

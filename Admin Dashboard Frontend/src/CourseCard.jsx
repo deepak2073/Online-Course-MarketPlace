@@ -1,6 +1,6 @@
 import { Card, Typography } from "@mui/material";
 import utility from './assets/utility.jpg'
-import { useState } from "react";
+import { useState } from "react"; 
 
 const  CourseCard = (props) => {
     console.log("hello from the course card component")

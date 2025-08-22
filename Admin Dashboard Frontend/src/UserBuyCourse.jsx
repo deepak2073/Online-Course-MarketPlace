@@ -1,4 +1,4 @@
-import { Card, Typography } from "@mui/material";
+import { Card, Typography } from "@mui/material"; 
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Route, useParams } from "react-router-dom";
