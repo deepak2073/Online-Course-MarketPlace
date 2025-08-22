@@ -1,1 +1,9 @@
-ADMIN DASHBOARD FRONTEND/node_modules.gitignore
+# Ignore ALL node_modules
+node_modules/
+
+# Specifically ignore node_modules inside the frontend
+Admin Dashboard Frontend/node_modules/
+
+# Other common ignores
+dist/
+.env
